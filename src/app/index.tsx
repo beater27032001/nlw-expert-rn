@@ -69,7 +69,6 @@ export default function Home() {
         contentContainerStyle={{ paddingBottom: 100 }}
       />
 
-      <Link href={'/home'}>Home</Link>
     </View>
   );
 }
