@@ -4,9 +4,11 @@ import { Image, Text, View } from "react-native";
 import { PRODUCTS } from "@/utils/data/products";
 
 export default function Poduct() {
-  const { id } = useLocalSearchParams<{id:string}>();
-  
-  const product = PRODUCTS.filter((product) => product.id === id)[0];
+  const { id } = useLocalSearchParams<{ id: string }>();
+
+  const product = PRODUCTS.filter((item) => item.id === id)[0];
+
+  console.log(product);
 
   if (!product) {
     return (
@@ -18,7 +20,17 @@ export default function Poduct() {
 
   return (
     <View className="flex-1">
-      <Image source={product.cover} className="w-full h-52" resizeMode="cover"/>
+      <Image
+        source={product.cover}
+        className="w-full h-52"
+        resizeMode="cover"
+      />
+
+      <View className="p-5 mt-8 flex-1">
+        <Text className="text-lime-400 text-2xl font-heading">
+          {product.price}
+        </Text>
+      </View>
     </View>
   );
 }

@@ -55,7 +55,7 @@ export default function Home() {
         keyExtractor={(item) => item.id}
         stickySectionHeadersEnabled={false}
         renderItem={({ item }) => (
-          <Link href={`products/${item.id}`} asChild>
+          <Link href={`products/${String(item.id)}`} asChild>
             <Product data={item} />
           </Link>
         )}
@@ -68,6 +68,8 @@ export default function Home() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 100 }}
       />
+
+      <Link href={'/home'}>Home</Link>
     </View>
   );
 }
