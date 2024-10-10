@@ -1,0 +1,51 @@
+- Inicilar o projeto com: npx create-expo-app@latest
+
+- instalar o nativewind e suas dependencias: npm i nativewind@2.0.11 / npm install --save-dev tailwindcss@3.3.2
+
+- Criar o arquivo do tailwindcss: npx tailwindcss init
+
+- Fazer os ajustes necessários no content para pegar qualquer pasta e extensões: "./src/app/**/*.{ts,tsx}", "./src/components/**/*.{ts,tsx}"
+
+- Configurar o plugin no babel: plugins: ["nativewind/babel"]
+
+- Criar a pasta types com o arquivo: nativewind.ts / E adiconar: /// <reference types="nativewind/types"/>
+
+- O arquivo Layout define um layout básico para uma aplicação React Native usando TypeScript. Ele garante que o conteúdo seja renderizado dentro de uma
+área segura da tela e aplica alguns estilos básicos. O Slot é importado do pacote expo-router. Ele é usado para renderizar componentes de rota dentro do
+layout, o SafeAreaView é importado do react-native. Ele é um componente que garante que o conteúdo não seja renderizado em áreas que podem ser cobertas por
+elementos do sistema, como o notch (entalhe) de dispositivos modernos.
+
+- Caso queria adicionar alguma fonte: npx expo install expo-font @expo-google-fonts/{digite a fonte aqui}
+
+- Importe os tipos da fonte no layout e configure-as no tailwind.config
+extend: {
+      fontFamily:{
+        heading: "Inter_600SemiBold",
+        subtitle: "Inter_500Medium",
+        body: "Inter_400Regular",
+        bold: "Inter_700Bold"
+      }
+    },
+
+- Garanta que essas fonts vão estar carregadas:
+const [fontsLoaded] = useFonts({
+        Inter_400Regular,
+        Inter_500Medium,
+        Inter_600SemiBold,
+        Inter_700Bold,
+    });
+
+    if(!fontsLoaded) {
+        return <Loading/>
+    }
+
+- Loading component: export function Loading() {
+  return (
+    <View className="flex-1 items-center justify-center bg-slate-900">
+      <ActivityIndicator color={colors.white} />
+    </View>
+  );
+}
+
+- Instalei o clsx: npm i clsx/ O pacote clsx é uma pequena utilidade para construir strings de classes condicionalmente.
+Ele é útil para aplicar classes CSS de forma dinâmica com base em condições.
