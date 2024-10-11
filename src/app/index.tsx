@@ -7,11 +7,15 @@ import { Header } from "@/components/header";
 import { Product } from "@/components/product";
 
 import { CATEGORIES, MENU } from "@/utils/data/products";
+import { useCartStore } from "@/stores/cart-store";
 
-export default function Home() {
+export default function Index() {
+  const cartStore = useCartStore()
   const [category, setCategory] = useState(CATEGORIES[0]);
 
   const sectionListRef = useRef<SectionList>(null);
+
+  const cartQuantityItems = cartStore.products.reduce((total, product) => total + product.quantity, 0)
 
   function handleSelectCategory(selectedCategory: string) {
     setCategory(selectedCategory);
@@ -31,7 +35,8 @@ export default function Home() {
 
   return (
     <View className="pt-8 flex-1">
-      <Header title={"Faça o seu pedido"} cartQuantityItems={1} />
+      <Header title={"Faça o seu pedido"} cartQuantityItems={cartQuantityItems} />
+      <Link href={'/home'}>Entre</Link>
 
       <FlatList
         data={CATEGORIES}
@@ -55,7 +60,7 @@ export default function Home() {
         keyExtractor={(item) => item.id}
         stickySectionHeadersEnabled={false}
         renderItem={({ item }) => (
-          <Link href={`products/${String(item.id)}`} asChild>
+          <Link href={`/product/${item.id}`} asChild>
             <Product data={item} />
           </Link>
         )}

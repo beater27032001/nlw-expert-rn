@@ -49,3 +49,5 @@ const [fontsLoaded] = useFonts({
 
 - Instalei o clsx: npm i clsx/ O pacote clsx é uma pequena utilidade para construir strings de classes condicionalmente.
 Ele é útil para aplicar classes CSS de forma dinâmica com base em condições.
+
+- Instalar o zustand para trabalhar com estados globais: npm install zustand
