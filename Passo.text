@@ -51,3 +51,40 @@ const [fontsLoaded] = useFonts({
 Ele é útil para aplicar classes CSS de forma dinâmica com base em condições.
 
 - Instalar o zustand para trabalhar com estados globais: npm install zustand
+
+- Cria uma pasta stores para gerenciar o zustand e uma helpers para guardar as funções
+export type ProductCartProps = ProductProps & {
+  quantity: number;
+};
+
+type StateProps = {
+  products: ProductCartProps[];
+  add: (product: ProductProps) => void;
+};
+
+export const useCartStore = create<StateProps>((set) => ({
+  products: [],
+
+  add: (product: ProductProps) =>
+    set((state) => ({
+      products: cartInMemory.add(state.products, product),
+    })),
+}));
+
+export function add(products: ProductCartProps[], newProduct: ProductProps) {
+  const existingProduct = products.find(({ id }) => newProduct.id === id);
+
+  if (existingProduct) {
+    return products.map((product) =>
+      product.id === existingProduct.id
+        ? { ...product, quantity: product.quantity + 1 }
+        : product
+    );
+  }
+
+  return [...products, { ...newProduct, quantity: 1 }];
+}
+
+- Instalando uma biblioteca para melhorar na vizualização do input: npm i react-native-keyboard-aware-scroll-view --save
+
+- Instalando a biblioteca async storage para persistir os dados no dispositivo: npx expo install @react-native-async-storage/async-storage

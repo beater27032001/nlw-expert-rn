@@ -1,5 +1,6 @@
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { Image, Text, View } from "react-native";
+import { Redirect } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 
 import { useCartStore } from "@/stores/cart-store";
@@ -15,19 +16,17 @@ export default function Poduct() {
   const navigation = useNavigation();
   const cartStore = useCartStore();
 
-  const product = PRODUCTS.filter((item) => item.id === id)[0];
+  const product = PRODUCTS.find((item) => item.id === id);
 
   function handleAddToCart() {
-    cartStore.add(product);
-    navigation.goBack()
+    if (product) {
+      cartStore.add(product);
+      navigation.goBack();
+    }
   }
 
   if (!product) {
-    return (
-      <View className="flex-1 items-center justify-center">
-        <Text className="text-white">Produto não encontrado</Text>
-      </View>
-    );
+    return <Redirect href="/" />;
   }
 
   return (
@@ -39,6 +38,8 @@ export default function Poduct() {
       />
 
       <View className="p-5 mt-8 flex-1">
+        <Text className="text-white text-xl font-heading">{product.title}</Text>
+
         <Text className="text-lime-400 text-2xl font-heading">
           {formatCurrency(product.price)}
         </Text>

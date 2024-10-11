@@ -6,14 +6,14 @@ import { CategoryButton } from "@/components/category-button";
 import { Header } from "@/components/header";
 import { Product } from "@/components/product";
 
-import { CATEGORIES, MENU } from "@/utils/data/products";
+import { CATEGORIES, MENU, ProductProps } from "@/utils/data/products";
 import { useCartStore } from "@/stores/cart-store";
 
 export default function Index() {
   const cartStore = useCartStore()
   const [category, setCategory] = useState(CATEGORIES[0]);
 
-  const sectionListRef = useRef<SectionList>(null);
+  const sectionListRef = useRef<SectionList<ProductProps>>(null);
 
   const cartQuantityItems = cartStore.products.reduce((total, product) => total + product.quantity, 0)
 
@@ -36,7 +36,6 @@ export default function Index() {
   return (
     <View className="pt-8 flex-1">
       <Header title={"Faça o seu pedido"} cartQuantityItems={cartQuantityItems} />
-      <Link href={'/home'}>Entre</Link>
 
       <FlatList
         data={CATEGORIES}
